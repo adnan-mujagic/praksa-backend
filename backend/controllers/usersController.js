@@ -1,4 +1,4 @@
-let User = require("./usersModel")
+let User = require("../models/usersModel")
 
 module.exports.getAll = function(req, res){
     User.find(function (err, users){

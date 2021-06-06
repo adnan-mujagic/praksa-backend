@@ -3,7 +3,7 @@ let mongoose = require("mongoose")
 let port = 3000
 
 //Import routes
-let userRoutes = require("./backend/usersRoutes.js")
+let userRoutes = require("./backend/routes/usersRoutes.js")
 
 const app = express()
 

@@ -1,5 +1,5 @@
 let router = require("express").Router()
-let userController = require("./usersController.js");
+let userController = require("../controllers/usersController.js");
 
 router.get("/", (req,res)=>{
     res.json({
