@@ -16,4 +16,8 @@ router.route("/users/:user_id")
     .put(userController.update)
     .get(userController.view)
 
+router.route("/users/:user_id/posts")
+    .get(userController.getUserSpecificPosts)
+    .post(userController.addPost)
+
 module.exports = router;

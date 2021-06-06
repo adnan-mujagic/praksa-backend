@@ -1,4 +1,6 @@
 let User = require("../models/usersModel")
+let Post = require("../models/postsModel");
+const { post } = require("../routes/usersRoutes");
 
 module.exports.getAll = function(req, res){
     User.find(function (err, users){
@@ -72,6 +74,50 @@ module.exports.add = function(req, res){
             res.json({
                 status:"User added successfully",
                 data:user
+            })
+        }
+    })
+}
+
+module.exports.addPost = function(req, res){
+    User.findOne({_id:req.params.user_id},function(err, user){
+        if(err){
+            res.json(err);
+        }
+        else{
+            let post = new Post();
+            post.name = req.body.name;
+            post.cost = req.body.cost;
+            post.state = req.body.state;
+            post.description = req.body.description;
+            post.created_by = user._id;
+
+            post.save(function (err){
+                if(err){
+                    res.json(err);
+
+                }
+                else{
+                    res.json({
+                        status:"Success",
+                        data:post
+                    })
+                }
+            })
+        }
+    })
+}
+
+module.exports.getUserSpecificPosts = function(req,res){
+    Post.find({created_by:req.params.user_id})
+    .exec(function(err, posts){
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json({
+                status:"Success",
+                data:posts
             })
         }
     })
