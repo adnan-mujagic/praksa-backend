@@ -1,6 +1,21 @@
 let User = require("../models/usersModel")
 let Post = require("../models/postsModel");
 const { post } = require("../routes/usersRoutes");
+var jwt = require("jsonwebtoken");
+
+function getJWTToken(user){
+    return jwt.sign({
+        uid:user._id,
+        uname:user.username,
+        exp:Math.floor(Date.now() / 1000) + (60 * 60)
+    },"MY_KEY")
+    
+}
+
+function decodeJTWToken(token){
+    return jwt.verify(token, "MY_KEY");
+}
+
 
 module.exports.getAll = function(req, res){
     User.find(function (err, users){
@@ -118,6 +133,37 @@ module.exports.getUserSpecificPosts = function(req,res){
             res.json({
                 status:"Success",
                 data:posts
+            })
+        }
+    })
+}
+
+module.exports.login = function(req, res){
+    User.findOne({username:req.body.username}, function(err, user){
+        if(err){
+            res.json({
+                status:"Invalid username!"
+            });
+        }
+        else if(user!=null){
+            if(user.password == req.body.password){
+                var user_token = getJWTToken(user);
+                res.json({
+                    status:"Successfully logged in!",
+                    token:user_token,
+                    data:user,
+                    token_content:decodeJTWToken(user_token)
+                })
+            }
+            else{
+                res.json({
+                    status:"Wrong password!"
+                })
+            }
+        }
+        else{
+            res.json({
+                status:"Invalid username!"
             })
         }
     })

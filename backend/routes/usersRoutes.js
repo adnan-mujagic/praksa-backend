@@ -20,4 +20,7 @@ router.route("/users/:user_id/posts")
     .get(userController.getUserSpecificPosts)
     .post(userController.addPost)
 
+router.route("/users/login")
+    .post(userController.login);
+
 module.exports = router;
