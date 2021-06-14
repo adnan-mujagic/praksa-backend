@@ -3,6 +3,18 @@ let Post = require("../models/postsModel");
 const { post } = require("../routes/usersRoutes");
 var jwt = require("jsonwebtoken");
 
+function checkUniqueUsername(user, fn){
+    User.findOne({username:user},function(err, user1){
+        if(user1){
+            console.log(JSON.stringify(user1));
+            return fn(null, user1);
+        }
+        else{
+            return fn(new Error("OK"))
+        }
+    })
+}
+
 function getJWTToken(user){
     return jwt.sign({
         uid:user._id,
@@ -81,14 +93,23 @@ module.exports.add = function(req, res){
     user.phone_number = req.body.phone_number;
     user.email = req.body.email;
 
-    user.save(function (err){
-        if(err){
-            res.json(err);
+    checkUniqueUsername(user.username, function(err, usr){
+        if(usr){
+            res.json({
+                status:"User with that username already exists!"
+            })
         }
         else{
-            res.json({
-                status:"User added successfully",
-                data:user
+            user.save(function (err){
+                if(err){
+                    res.json(err);
+                }
+                else{
+                    res.json({
+                        status:"User added successfully",
+                        data:user
+                    })
+                }
             })
         }
     })
