@@ -1,5 +1,5 @@
 let User = require("../models/usersModel")
-let Post = require("../models/postsModel");
+let Store = require("../models/storesModel");
 const { post } = require("../routes/usersRoutes");
 let jwt = require("jsonwebtoken");
 let config = require("../../config.js");
@@ -124,7 +124,7 @@ module.exports.add = function(req, res){
     })
 }
 
-module.exports.addPost = function(req, res){
+/*module.exports.addPost = function(req, res){
     User.findOne({_id:req.params.user_id},function(err, user){
         if(err){
             res.json({
@@ -155,9 +155,9 @@ module.exports.addPost = function(req, res){
             })
         }
     })
-}
+}*/
 
-module.exports.getUserSpecificPosts = function(req,res){
+/*module.exports.getUserSpecificPosts = function(req,res){
     Post.find({created_by:req.params.user_id})
     .exec(function(err, posts){
         if(err){
@@ -169,6 +169,55 @@ module.exports.getUserSpecificPosts = function(req,res){
             res.json({
                 status:"Success",
                 data:posts
+            })
+        }
+    })
+}*/
+
+module.exports.addStore = function(req, res){
+    User.findOne({_id:req.params.user_id}, function(err, user){
+        if(err){
+            res.json({
+                status:err,
+            })
+        }
+        else{
+            let store = new Store();
+            store.name = req.body.name;
+            store.location.city = req.body.city;
+            store.location.address = req.body.address;
+            store.owner = user._id;
+
+            console.log(user);
+
+            store.save(function(err){
+                if(err){
+                    res.json({
+                        status:err,
+                    })
+                }
+                else{
+                    res.json({
+                        status:"Success",
+                        data:store
+                    })
+                }
+            })
+        }
+    })
+}
+
+module.exports.getUserSpecificStores = function(req, res){
+    Store.find({owner:req.params.user_id},function(err, stores){
+        if(err){
+            res.json({
+                status:err
+            })
+        }
+        else{
+            res.json({
+                status:"Success",
+                data: stores
             })
         }
     })

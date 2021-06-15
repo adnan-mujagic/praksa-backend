@@ -5,6 +5,7 @@ let port = 3000
 //Import routes
 let userRoutes = require("./backend/routes/usersRoutes.js")
 let postRoutes = require("./backend/routes/postsRoutes.js")
+let storeRoutes = require("./backend/routes/storesRoutes.js")
 
 const app = express()
 
@@ -19,6 +20,7 @@ app.use(express.json())
 //Tell app which routes to use!
 app.use("/api",userRoutes)
 app.use("/api",postRoutes)
+app.use("/api",storeRoutes)
 
 const dbPath = 'mongodb+srv://ado:ado@trying.p1yho.mongodb.net/social_sell?retryWrites=true&w=majority';
 const options = {useNewUrlParser: true, useUnifiedTopology: true}

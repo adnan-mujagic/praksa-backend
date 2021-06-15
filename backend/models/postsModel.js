@@ -10,9 +10,9 @@ let postSchema = new mongoose.Schema({
         type:Date,
         default:Date.now
     },
-    created_by:{
+    store:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+        ref:"Store"
     }
 });
 
