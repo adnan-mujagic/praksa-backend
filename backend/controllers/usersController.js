@@ -32,7 +32,9 @@ function decodeJTWToken(token){
 module.exports.getAll = function(req, res){
     User.find(function (err, users){
         if(err){
-            res.json(err);
+            res.json({
+                status:err
+            });
         }
         else{
             res.json({
@@ -46,7 +48,9 @@ module.exports.getAll = function(req, res){
 module.exports.update = function(req, res){
     User.findOne({_id:req.params.user_id}, function(err, user){
         if(err){
-            res.json(err)
+            res.json({
+                status:err
+            })
         }
         else{
             user.username = req.body.username? req.body.username : user.username
@@ -58,7 +62,7 @@ module.exports.update = function(req, res){
             user.save(function (err){
                 if(err){
                     res.json({
-                        error:err
+                        status:err
                     })
                 }
                 else{
@@ -75,7 +79,9 @@ module.exports.update = function(req, res){
 module.exports.view = function (req, res){
     User.findOne({_id:req.params.user_id}, function(err, user){
         if(err){
-            res.json(err)
+            res.json({
+                status:err
+            })
         }else{
             res.json({
                 status:"User found successfully",
@@ -102,7 +108,9 @@ module.exports.add = function(req, res){
         else{
             user.save(function (err){
                 if(err){
-                    res.json(err);
+                    res.json({
+                        status:err
+                    });
                 }
                 else{
                     res.json({
@@ -118,7 +126,9 @@ module.exports.add = function(req, res){
 module.exports.addPost = function(req, res){
     User.findOne({_id:req.params.user_id},function(err, user){
         if(err){
-            res.json(err);
+            res.json({
+                status:err
+            });
         }
         else{
             let post = new Post();
@@ -130,7 +140,9 @@ module.exports.addPost = function(req, res){
 
             post.save(function (err){
                 if(err){
-                    res.json(err);
+                    res.json({
+                        status:err
+                    });
 
                 }
                 else{
@@ -148,7 +160,9 @@ module.exports.getUserSpecificPosts = function(req,res){
     Post.find({created_by:req.params.user_id})
     .exec(function(err, posts){
         if(err){
-            res.json(err);
+            res.json({
+                status:err
+            });
         }
         else{
             res.json({

@@ -7,6 +7,10 @@ let userSchema = new mongoose.Schema({
     age:Number,
     phone_number:String,
     email:String,
+    role:{
+        type:String,
+        default:"NORMAL"
+    },
     created_at: {
         type: Date,
         default: Date.now
