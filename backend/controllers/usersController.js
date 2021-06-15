@@ -1,7 +1,8 @@
 let User = require("../models/usersModel")
 let Post = require("../models/postsModel");
 const { post } = require("../routes/usersRoutes");
-var jwt = require("jsonwebtoken");
+let jwt = require("jsonwebtoken");
+let config = require("../../config.js");
 
 function checkUniqueUsername(user, fn){
     User.findOne({username:user},function(err, user1){
@@ -18,14 +19,14 @@ function checkUniqueUsername(user, fn){
 function getJWTToken(user){
     return jwt.sign({
         uid:user._id,
-        uname:user.username,
+        r:user.role,
         exp:Math.floor(Date.now() / 1000) + (60 * 60)
-    },"MY_KEY")
+    },config.JWT_KEY)
     
 }
 
 function decodeJTWToken(token){
-    return jwt.verify(token, "MY_KEY");
+    return jwt.verify(token, config.JWT_KEY);
 }
 
 
@@ -187,7 +188,6 @@ module.exports.login = function(req, res){
                     status:"Successfully logged in!",
                     token:user_token,
                     data:user,
-                    token_content:decodeJTWToken(user_token)
                 })
             }
             else{
