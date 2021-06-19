@@ -1,6 +1,6 @@
 let express = require("express")
 let mongoose = require("mongoose")
-let port = 3000
+let port = process.env.PORT || 3000;
 
 //Import routes
 let userRoutes = require("./backend/routes/usersRoutes.js")
