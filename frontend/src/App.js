@@ -1,22 +1,15 @@
 
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import { Alert } from 'react-bootstrap';
 
 function Header(){
   return(
-    <header className="App-header">
-    
-    <p>
-      Edit <code>src/App.js</code> and save to reload.
-    </p>
-    <a
-      className="App-link"
-      href="https://reactjs.org"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Learn React
-    </a>
-  </header>
+    <div>
+      <Alert variant="dark">This is some alert</Alert>
+      <Button className="some-button">Click Me</Button>
+    </div>
   )
 }
 
