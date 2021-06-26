@@ -6,6 +6,10 @@ let postSchema = new mongoose.Schema({
     description:String,
     cost:Number,
     state:String,
+    image_url:{
+        type:String,
+        default:"https://png.pngtree.com/png-vector/20201123/ourlarge/pngtree-isolated-parcel-box-vector-icon-png-image_2463878.jpg"
+    },
     created_at:{
         type:Date,
         default:Date.now
