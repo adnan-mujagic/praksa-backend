@@ -236,7 +236,6 @@ module.exports.login = function(req, res){
                 res.json({
                     status:"Successfully logged in!",
                     token:user_token,
-                    data:user,
                 })
             }
             else{
