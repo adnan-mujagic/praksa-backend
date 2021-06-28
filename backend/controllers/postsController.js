@@ -8,7 +8,10 @@ module.exports.getPosts = function(req, res){
                 status:err
             })
         }
-        res.json(posts);
+        res.json({
+            status:"Success",
+            data:posts
+        });
     })
 }
 
