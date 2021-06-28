@@ -1,18 +1,14 @@
 let Post = require("../models/postsModel.js");
+let Store = require("../models/storesModel.js");
 
 module.exports.getPosts = function(req, res){
-    Post.find(function (err, posts){
+    Post.find().populate("store").exec(function(err, posts){
         if(err){
             res.json({
                 status:err
-            });
-        }
-        else{
-            res.json({
-                status:"Success",
-                data:posts
             })
         }
+        res.json(posts);
     })
 }
 
