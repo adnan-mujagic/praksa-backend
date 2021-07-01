@@ -186,9 +186,8 @@ module.exports.addStore = function(req, res){
             store.name = req.body.name;
             store.location.city = req.body.city;
             store.location.address = req.body.address;
+            store.image = req.body.image;
             store.owner = user._id;
-
-            console.log(user);
 
             store.save(function(err){
                 if(err){

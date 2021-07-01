@@ -1,5 +1,4 @@
 let Post = require("../models/postsModel.js");
-let Store = require("../models/storesModel.js");
 
 module.exports.getPosts = function(req, res){
     Post.find().populate("store").exec(function(err, posts){

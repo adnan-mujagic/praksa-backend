@@ -2,7 +2,7 @@ let Store = require("../models/storesModel.js");
 let Post = require("../models/postsModel.js");
 
 module.exports.getStores = function(req, res){
-    Store.find(function(err, stores){
+    Store.find().populate("owner").exec(function(err, stores){
         if(err){
             res.json({
                 status:err
@@ -18,7 +18,7 @@ module.exports.getStores = function(req, res){
 }
 
 module.exports.getSingleStore = function (req, res){
-    Store.find({_id:req.params.store_id}, function(err, store){
+    Store.find({_id:req.params.store_id}).populate("owner").exec(function(err, store){
         if(err){
             res.json({
                 status:err

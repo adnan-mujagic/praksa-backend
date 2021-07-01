@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 let storeSchema = new mongoose.Schema({
     name:String,
+    image:String,
     location:{
         city:String,
         address:String
