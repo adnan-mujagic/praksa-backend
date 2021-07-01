@@ -18,7 +18,7 @@ module.exports.getStores = function(req, res){
 }
 
 module.exports.getSingleStore = function (req, res){
-    Store.find({_id:req.params.store_id}).populate("owner").exec(function(err, store){
+    Store.findOne({_id:req.params.store_id}).populate("owner").exec(function(err, store){
         if(err){
             res.json({
                 status:err
