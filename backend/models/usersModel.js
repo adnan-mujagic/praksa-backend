@@ -7,6 +7,10 @@ let userSchema = new mongoose.Schema({
     age:Number,
     phone_number:String,
     email:String,
+    image:{
+        type:String,
+        defaut:"https://publishing.professionalsofthefuture.com/wp-content/uploads/2019/01/user-icon.png"
+    },
     role:{
         type:String,
         default:"NORMAL"

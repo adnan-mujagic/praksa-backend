@@ -99,6 +99,7 @@ module.exports.add = function(req, res){
     user.full_name = req.body.full_name;
     user.phone_number = req.body.phone_number;
     user.email = req.body.email;
+    if(req.body.image) user.image = req.body.image;
 
     checkUniqueUsername(user.username, function(err, usr){
         if(usr){
@@ -123,56 +124,6 @@ module.exports.add = function(req, res){
         }
     })
 }
-
-/*module.exports.addPost = function(req, res){
-    User.findOne({_id:req.params.user_id},function(err, user){
-        if(err){
-            res.json({
-                status:err
-            });
-        }
-        else{
-            let post = new Post();
-            post.name = req.body.name;
-            post.cost = req.body.cost;
-            post.state = req.body.state;
-            post.description = req.body.description;
-            post.created_by = user._id;
-
-            post.save(function (err){
-                if(err){
-                    res.json({
-                        status:err
-                    });
-
-                }
-                else{
-                    res.json({
-                        status:"Success",
-                        data:post
-                    })
-                }
-            })
-        }
-    })
-}*/
-
-/*module.exports.getUserSpecificPosts = function(req,res){
-    Post.find({created_by:req.params.user_id})
-    .exec(function(err, posts){
-        if(err){
-            res.json({
-                status:err
-            });
-        }
-        else{
-            res.json({
-                status:"Success",
-                data:posts
-            })
-        }
-    })
-}*/
 
 module.exports.addStore = function(req, res){
     User.findOne({_id:req.params.user_id}, function(err, user){
