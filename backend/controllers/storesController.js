@@ -46,8 +46,10 @@ module.exports.addPost = function(req, res){
             post.description = req.body.description;
             post.cost = req.body.cost;
             post.state = req.body.state;
+            post.quantity = req.body.quantity;
             post.image_url = req.body.image_url;
             post.store = store._id;
+            
             
 
             post.save(function(err){
