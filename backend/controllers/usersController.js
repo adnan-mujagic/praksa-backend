@@ -99,7 +99,12 @@ module.exports.add = function(req, res){
     user.full_name = req.body.full_name;
     user.phone_number = req.body.phone_number;
     user.email = req.body.email;
-    if(req.body.image) user.image = req.body.image;
+    if(req.body.image){
+        user.image = req.body.image;
+    } 
+    else{
+        user.image = "https://icon-library.com/images/new-user-icon/new-user-icon-17.jpg"
+    }
 
     checkUniqueUsername(user.username, function(err, usr){
         if(usr){
