@@ -103,7 +103,7 @@ module.exports.add = function(req, res){
         user.image = req.body.image;
     } 
     else{
-        user.image = "https://icon-library.com/images/new-user-icon/new-user-icon-17.jpg"
+        user.image = "https://image.flaticon.com/icons/png/512/3135/3135715.png"
     }
 
     checkUniqueUsername(user.username, function(err, usr){
