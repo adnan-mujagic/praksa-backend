@@ -54,25 +54,53 @@ module.exports.update = function(req, res){
             })
         }
         else{
+            const initial_username = user.username;
             user.username = req.body.username? req.body.username : user.username
             user.password = req.body.password? req.body.password : user.password
             user.full_name = req.body.full_name? req.body.full_name : user.full_name
             user.phone_number = req.body.phone_number? req.body.phone_number : user.phone_number
             user.email = req.body.email? req.body.email: user.email
 
-            user.save(function (err){
-                if(err){
-                    res.json({
-                        status:err
-                    })
-                }
-                else{
-                    res.json({
-                        status:"Update successful!",
-                        data:user
-                    })
-                }
-            })
+            if(initial_username!=user.username){
+                checkUniqueUsername(user.username, function(err, usr){
+                    if(usr){
+                        res.json({
+                            status:"Oops, that username is taken, please pick one that isn't!"
+                        })
+                    }
+                    else{
+                        user.save(function (err){
+                            if(err){
+                                res.json({
+                                    status:err
+                                });
+                            }
+                            else{
+                                res.json({
+                                    status:"User updated successfully",
+                                    data:user
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+
+            else{
+                user.save(function (err){
+                    if(err){
+                        res.json({
+                            status:err
+                        })
+                    }
+                    else{
+                        res.json({
+                            status:"Update successful!",
+                            data:user
+                        })
+                    }
+                })
+            }
         }
     })
 }
