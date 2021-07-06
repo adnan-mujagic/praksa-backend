@@ -54,14 +54,29 @@ module.exports.update = function(req, res){
             })
         }
         else{
-            const initial_username = user.username;
+            const old_data = {
+                username : user.username,
+                password : user.password,
+                full_name : user.full_name,
+                phone_number : user.phone_number,
+                email : user.email,
+                image : user.image
+            }
             user.username = req.body.username? req.body.username : user.username
             user.password = req.body.password? req.body.password : user.password
             user.full_name = req.body.full_name? req.body.full_name : user.full_name
             user.phone_number = req.body.phone_number? req.body.phone_number : user.phone_number
             user.email = req.body.email? req.body.email: user.email
+            user.image = req.body.image? req.body.image: user.image
 
-            if(initial_username!=user.username){
+            if(old_data.username===user.username && old_data.password===user.password && old_data.full_name===user.full_name &&
+                old_data.phone_number===user.phone_number && old_data.email===user.email && old_data.image===user.image){
+                    res.json({
+                        status:"You haven't changed any data!"
+                    })
+                }
+
+            else if(old_data.username!=user.username){
                 checkUniqueUsername(user.username, function(err, usr){
                     if(usr){
                         res.json({
