@@ -110,7 +110,7 @@ module.exports.update = function(req, res){
                     }
                     else{
                         res.json({
-                            status:"Update successful!",
+                            status:"User updated successfully",
                             data:user
                         })
                     }
